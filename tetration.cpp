@@ -1,7 +1,7 @@
 #include <iostream>
 #include "tetration.hpp"
 
-long Tetration::getArrayLen(std::array<short, MAX_DIGIT> a) {
+long Tetration::getArrayLen(std::array<int_fast16_t, MAX_DIGIT> a) {
 	long i;
 	for(i = 0; i < MAX_DIGIT; i++) {
 		if(a.at(i) != 0) {
@@ -11,7 +11,7 @@ long Tetration::getArrayLen(std::array<short, MAX_DIGIT> a) {
 	return MAX_DIGIT - i;
 }
 
-int Tetration::decrement(std::array<short, MAX_DIGIT>& a) {
+int Tetration::decrement(std::array<int_fast16_t, MAX_DIGIT>& a) {
 	int flag = 1;
 	a[MAX_DIGIT - 1]--;
 
@@ -47,7 +47,7 @@ void Tetration::printResult() {
 	std::cout << std::endl << "桁数:" << digit << std::endl;
 }
 
-void Tetration::calcMulti(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DIGIT> b) {
+void Tetration::calcMulti(std::array<int_fast16_t, MAX_DIGIT> a, std::array<int_fast16_t, MAX_DIGIT> b) {
 	result.fill(0);
 
 	long aLen = getArrayLen(a);
@@ -72,7 +72,7 @@ void Tetration::calcMulti(std::array<short, MAX_DIGIT> a, std::array<short, MAX_
 	}
 }
 
-void Tetration::calcExp(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DIGIT> b) {
+void Tetration::calcExp(std::array<int_fast16_t, MAX_DIGIT> a, std::array<int_fast16_t, MAX_DIGIT> b) {
 	calcMulti(a, a);
 	decrement(b);
 	int flag = decrement(b);
@@ -83,7 +83,7 @@ void Tetration::calcExp(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DI
 	}
 }
 
-void Tetration::calcTetr(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DIGIT> b) {
+void Tetration::calcTetr(std::array<int_fast16_t, MAX_DIGIT> a, std::array<int_fast16_t, MAX_DIGIT> b) {
 	calcExp(a, a);
 	decrement(b);
 	int flag = decrement(b);

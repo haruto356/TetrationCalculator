@@ -2,7 +2,7 @@
 #include "timer.hpp"
 #include "tetration.hpp"
 
-void initArray(std::array<short, MAX_DIGIT>& a, long num) {
+void initArray(std::array<int_fast16_t, MAX_DIGIT>& a, long num) {
 	a.fill(0);
 
 	long i = 10;
@@ -17,7 +17,7 @@ void initArray(std::array<short, MAX_DIGIT>& a, long num) {
 
 int main(void) {
 	long a, b;
-	std::array<short, MAX_DIGIT> arrayA, arrayB;
+	std::array<int_fast16_t, MAX_DIGIT> arrayA, arrayB;
 	Timer timer = Timer();
 	Tetration tetration = Tetration();
 
