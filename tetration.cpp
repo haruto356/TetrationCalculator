@@ -11,6 +11,26 @@ long Tetration::getArrayLen(std::array<short, MAX_DIGIT> a) {
 	return MAX_DIGIT - i;
 }
 
+int Tetration::decrement(std::array<short, MAX_DIGIT>& a) {
+	int flag = 1;
+	a[MAX_DIGIT - 1]--;
+
+	for(long i = MAX_DIGIT - 1; i > 0; i--) {
+		if(a[i] == -1) {
+			a[i] = 9;
+			a[i - 1]--;
+		}
+	}
+	for(long i = MAX_DIGIT - 1; i >= 0; i--) {
+		if(a[i] != 0) {
+			flag = 0;
+			break;
+		}
+	}
+	return flag;
+}
+
+
 void Tetration::printResult() {
 	int flag = 1;
 	long digit = 0;
@@ -28,8 +48,15 @@ void Tetration::printResult() {
 }
 
 void Tetration::calcMulti(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DIGIT> b) {
+	result.fill(0);
+
 	long aLen = getArrayLen(a);
 	long bLen = getArrayLen(b);
+
+	if(aLen + 1 > MAX_DIGIT || bLen + 1 > MAX_DIGIT) {
+		std::cout << "桁数が足りません" << std::endl;
+		exit(1);
+	}
 
 	for(long i = MAX_DIGIT - 1; i >= MAX_DIGIT - bLen; i--) {
 		for(long j = MAX_DIGIT - 1; j >= MAX_DIGIT - aLen; j--) {
@@ -42,5 +69,27 @@ void Tetration::calcMulti(std::array<short, MAX_DIGIT> a, std::array<short, MAX_
 			result[i - 1] += result[i] / 10;
 			result[i] %= 10;
 		}
+	}
+}
+
+void Tetration::calcExp(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DIGIT> b) {
+	calcMulti(a, a);
+	decrement(b);
+	int flag = decrement(b);
+	while(true) {
+		if(flag == 1) break;
+		calcMulti(result, a);
+		flag = decrement(b);
+	}
+}
+
+void Tetration::calcTetr(std::array<short, MAX_DIGIT> a, std::array<short, MAX_DIGIT> b) {
+	calcExp(a, a);
+	decrement(b);
+	int flag = decrement(b);
+	while(true) {
+		if(flag == 1) break;
+		calcExp(a, result);
+		flag = decrement(b);
 	}
 }

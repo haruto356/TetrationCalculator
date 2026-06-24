@@ -33,8 +33,10 @@ int main(void) {
 	initArray(arrayB, b);
 
 	timer.startTimer();
-	tetration.calcMulti(arrayA, arrayB);
+	tetration.calcTetr(arrayA, arrayB);
 	timer.endTimer();
+
+	std::cout << a << " ↑↑ " << b << " = ";
 	tetration.printResult();
 	return 0;
 }
