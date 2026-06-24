@@ -2,38 +2,24 @@
 #include "timer.hpp"
 #include "tetration.hpp"
 
-void printArray(std::array<short, MAX_DIGIT> a) {
-	int flag = 1;
+void initArray(std::array<short, MAX_DIGIT>& a, long num) {
+	a.fill(0);
 
-	for(int i = 0; i < MAX_DIGIT; i++) {
-		if(flag == 1 && a.at(i) == 0) {
-			continue;
-		} else {
-			flag = 0;
-			std::cout << a.at(i);
-		}
-	}
-	std::cout << std::endl;
-}
-
-void initArray(std::array<short, MAX_DIGIT>& a, int num) {
-	int i = 10;
-	int index = MAX_DIGIT - 1;
+	long i = 10;
+	long index = MAX_DIGIT - 1;
 
 	do {
 		a[index] = (num % i) / (i / 10);
 		i *= 10;
 		index--;
-	} while(i / 10 < num);
+	} while(i / 10 <= num);
 }
 
 int main(void) {
-	int a, b;
+	long a, b;
 	std::array<short, MAX_DIGIT> arrayA, arrayB;
 	Timer timer = Timer();
-
-	arrayA.fill(0);
-	arrayB.fill(0);
+	Tetration tetration = Tetration();
 
 	do {
 		std::cout << "2つの値を入力してください" << std::endl;
@@ -46,11 +32,9 @@ int main(void) {
 	initArray(arrayA, a);
 	initArray(arrayB, b);
 
-	printArray(arrayA);
-	printArray(arrayB);
-
 	timer.startTimer();
-
+	tetration.calcMulti(arrayA, arrayB);
 	timer.endTimer();
+	tetration.printResult();
 	return 0;
 }
