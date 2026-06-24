@@ -60,6 +60,7 @@ void Tetration::calcMulti(std::array<int_fast16_t, MAX_DIGIT> a, std::array<int_
 
 	for(long i = MAX_DIGIT - 1; i >= MAX_DIGIT - bLen; i--) {
 		for(long j = MAX_DIGIT - 1; j >= MAX_DIGIT - aLen; j--) {
+			if(b[i] == 0) break;
 			result[MAX_DIGIT - 1 - (MAX_DIGIT - j - 1) - (MAX_DIGIT - i - 1)] += a[j] * b[i];
 		}
 	}
